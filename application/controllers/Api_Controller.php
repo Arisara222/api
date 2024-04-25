@@ -17,7 +17,7 @@ class Api_Controller extends CI_Controller {
         // exit;
         echo json_encode($result);
     } 
-
+////////
     public function show_Edit_Ac(){
         $result = $this->apimd->get_account();
         // echo "<pre>";
