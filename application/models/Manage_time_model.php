@@ -68,6 +68,7 @@ class Manage_time_model extends CI_Model {
 
         return $data;
     }
+
     public function show_type_leave()
     {
         $sql_group_per = "SELECT
@@ -80,6 +81,7 @@ class Manage_time_model extends CI_Model {
 
         return $data;
     }
+
     public function show_time_edit()
     {
         $sql_group_per = "SELECT

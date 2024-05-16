@@ -33,6 +33,7 @@ class Manage_leave extends CI_Controller {
             'ild_leave_kind' => $this->input->post('leaveKind'),
             'ild_remark' => $this->input->post('remark'),
             'ild_created_date' => date('Y-m-d H:i:s'),
+            'ild_status' => '0'
         ];
     
         // Handle file upload
