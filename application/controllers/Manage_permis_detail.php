@@ -41,7 +41,8 @@ class Manage_permis_detail extends CI_Controller {
     }
     
     public function drop_sub (){
-        $result = $this->mang->drop_sub();
+        $id = $this->input->post('main_menu_id');
+        $result = $this->mang->drop_sub($id);
         // echo "<pre>";
         // print_r($result);
         echo json_encode($result);

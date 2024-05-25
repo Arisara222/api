@@ -16,12 +16,30 @@ class Manage_timesheet extends CI_Controller {
         echo json_encode($result);
     } 
     
+    public function show_timesheet_view (){
+        $id = $this->input->get('id');
+        $result = $this->mtm->show_timesheet_view($id);
+        // echo "<pre>";
+        // print_r($result);
+        echo json_encode($result);
+    } 
+    
     public function show_username (){
         $result = $this->mtm->show_username();
         // echo "<pre>";
         // print_r($result);
         echo json_encode($result);
     } 
+    
+    public function show_username_all(){
+        $id = $this->input->post('id');
+        $result = $this->mtm->show_username_all($id);
+        // echo "<pre>";
+        // print_r($result);
+        echo json_encode($result);
+    } 
+    
+
     
     public function show_time_edit (){
         $result1 = $this->mtm->show_username();

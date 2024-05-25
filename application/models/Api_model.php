@@ -48,7 +48,7 @@ class Api_model extends CI_Model
         WHERE
             sys_permission_group.spg_id = '$sess' AND spd_status_flg = 1
         ORDER BY
-            sys_main_menu.smm_order ASC";
+            sys_main_menu.smm_order,sys_sub_menu.ssm_order_no ASC";
 
         $query = $this->db->query($sql, array($sess));
         $data = $query->result();
