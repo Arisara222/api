@@ -68,6 +68,25 @@ class Manage_time_model extends CI_Model {
 
         return $data;
     }
+    public function show_username_all($id)
+    {
+        $sql_group_per = "SELECT
+        sa_firstname,
+        sa_lastname,
+          sad_picture,
+          mp_name,
+          sad_leave_balance
+      FROM
+          `sys_account` as sa
+          
+          LEFT JOIN sys_account_detail sad ON sad.sa_id = sa.sa_id
+          LEFT JOIN mst_position mp ON mp.mp_id = sa.mp_id
+        WHERE sa.sa_id = '$id'";
+        $query = $this->db->query($sql_group_per);
+        $data = $query->result();
+
+        return $data;
+    }
 
     public function show_type_leave()
     {
@@ -99,10 +118,41 @@ class Manage_time_model extends CI_Model {
     {
         $sql_group_per = "SELECT
 	* 
-FROM
-	`info_leave_detail`
-INNER JOIN sys_account ON info_leave_detail.sa_id = sys_account.sa_id
-INNER JOIN mst_leave_detail ON info_leave_detail.mld_id = mst_leave_detail.mld_id";
+        FROM
+        	`info_leave_detail`
+        INNER JOIN sys_account ON info_leave_detail.sa_id = sys_account.sa_id
+        INNER JOIN mst_leave_detail ON info_leave_detail.mld_id = mst_leave_detail.mld_id";
+        $query = $this->db->query($sql_group_per);
+        $data = $query->result();
+
+        return $data;
+    }
+
+    public function show_leave_approve()
+    {
+        $sql_group_per = "SELECT
+	* 
+        FROM
+        	`info_leave_detail`
+        INNER JOIN sys_account ON info_leave_detail.sa_id = sys_account.sa_id
+        INNER JOIN mst_leave_detail ON info_leave_detail.mld_id = mst_leave_detail.mld_id
+        WHERE info_leave_detail.ild_status = '0'
+        ";
+        $query = $this->db->query($sql_group_per);
+        $data = $query->result();
+
+        return $data;
+    }
+
+    public function show_leave_view($id)
+    {
+        $sql_group_per = "SELECT
+	* 
+                            FROM
+                            	`info_leave_detail`
+                            LEFT JOIN sys_account ON info_leave_detail.sa_id = sys_account.sa_id
+                            LEFT JOIN mst_leave_detail ON info_leave_detail.mld_id = mst_leave_detail.mld_id
+                            WHERE info_leave_detail.ild_id = '$id'";
         $query = $this->db->query($sql_group_per);
         $data = $query->result();
 
@@ -121,6 +171,21 @@ INNER JOIN mst_leave_detail ON info_leave_detail.mld_id = mst_leave_detail.mld_i
         $this->db->insert('info_leave_detail', $data);
         return $this->db->affected_rows() > 0 ? true : false;
         
+    }
+
+    public function deleteLeave($id)
+    {
+        $this->db->where('ild_id', $id);
+        $this->db->delete('info_leave_detail');
+    
+        // Check if any rows were affected
+        return $this->db->affected_rows() > 0;
+        
+    }
+
+    public function approve_leave($id, $data) {
+        $this->db->where('ild_id', $id);
+        return $this->db->update('info_leave_detail', $data);
     }
 
 

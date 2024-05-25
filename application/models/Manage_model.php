@@ -33,7 +33,7 @@ class Manage_model extends CI_Model
         foreach ($query->result() as $key => $value) {
             $arr['permission'][] = $value;
         }
-        $sql2 = "SELECT mpc_id,mpc_code,mpc_name From mst_plant_code";
+        $sql2 = "SELECT mp_id,mp_name From mst_position";
         $query = $this->db->query($sql2);
 
         foreach ($query->result() as $key => $value) {
@@ -62,8 +62,8 @@ class Manage_model extends CI_Model
         if ($query_check_duplicate->num_rows() > 0) {
             return array('result' => 9); // มีข้อมูลซ้ำ
         } else {
-            $sql_insert = "INSERT INTO sys_account (sa_emp_code, sa_emp_password, sa_firstname, sa_lastname, sa_email, spg_id, mpc_id, sa_created_by, sa_created_date, sa_status_flg) 
-                           VALUES ('$empcode', '$password', '$firstname', '$lastname', '$email', '$permisgroup', '$plant', '$sess', NOW(), 1)";
+            $sql_insert = "INSERT INTO sys_account (sa_emp_code, sa_emp_password, sa_firstname, sa_lastname, sa_email, spg_id, mp_id, sa_status_flg, sa_created_by, sa_created_date,sa_updated_by, sa_updated_date) 
+                           VALUES ('$empcode', '$password', '$firstname', '$lastname', '$email', '$permisgroup', '$plant',1, '$sess', NOW() ,'$sess', NOW())";
 
             $query = $this->db->query($sql_insert);
 
@@ -157,7 +157,7 @@ class Manage_model extends CI_Model
         sa_status_flg = '$flag',
         sa_updated_date = NOW(),
         sa_updated_by = '$sess',
-        mpc_id = '$plant'
+        mp_id = '$plant'
         WHERE sa_id = '$id';
         ";
 
@@ -190,7 +190,7 @@ class Manage_model extends CI_Model
                     sa_lastname= '$lastname',
                     sa_email= '$email',
                     spg_id= '$permisgroup',
-                    mpc_id= '$plant',
+                    mp_id= '$plant',
                     sa_updated_date= NOW(),
                     sa_updated_by= '$sess'
                 WHERE sa_emp_code= '$empcode';
@@ -212,7 +212,7 @@ class Manage_model extends CI_Model
                     sa_lastname= '$lastname',
                     sa_email= '$email',
                     spg_id= '$permisgroup',
-                    mpc_id= '$plant',
+                    mp_id= '$plant',
                     sa_updated_date= NOW(),
                     sa_updated_by= '$sess'
                 WHERE sa_emp_code= '$empcode';
@@ -258,7 +258,7 @@ class Manage_model extends CI_Model
         if ($query_check_duplicate->num_rows() > 0) {
             return array('result' => 9); // มีข้อมูลซ้ำ
         } else {
-            $sql_insert = "INSERT INTO sys_account (sa_emp_code, sa_emp_password, sa_firstname, sa_lastname, sa_email, spg_id, mpc_id, sa_created_by, sa_created_date, sa_status_flg) 
+            $sql_insert = "INSERT INTO sys_account (sa_emp_code, sa_emp_password, sa_firstname, sa_lastname, sa_email, spg_id, mp_id, sa_created_by, sa_created_date, sa_status_flg) 
                            VALUES ('$empcode', '$password', '$firstname', '$lastname', '$email', '$permisgroup', '$plant', '$sess', NOW(), 1)";
 
             $query = $this->db->query($sql_insert);

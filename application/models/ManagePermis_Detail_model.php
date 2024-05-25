@@ -79,9 +79,9 @@ class ManagePermis_Detail_model extends CI_Model {
 
         return $data;
     }
-    public function drop_sub()
+    public function drop_sub($id)
     {
-        $sql_sub_menu = "SELECT ssm_id, ssm_name FROM sys_sub_menu";
+        $sql_sub_menu = "SELECT ssm_id, ssm_name FROM sys_sub_menu WHERE smm_id = '$id'";
         $query = $this->db->query($sql_sub_menu);
         $data = $query->result();
 

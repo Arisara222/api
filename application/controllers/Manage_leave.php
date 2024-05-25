@@ -16,8 +16,34 @@ class Manage_leave extends CI_Controller {
         echo json_encode($result);
     } 
 
-    public function show_leave (){
+    public function show_leave(){
         $result = $this->mtm->show_leave();
+        // echo "<pre>";
+        // print_r($result);
+        echo json_encode($result);
+    } 
+
+    public function show_leave_approve(){
+        $result = $this->mtm->show_leave_approve();
+        // echo "<pre>";
+        // print_r($result);
+        echo json_encode($result);
+    } 
+
+    public function approve_leave(){
+        $id = $this->input->post('ild_id');
+        $data = [
+            'ild_status' => 1
+        ];
+        $result = $this->mtm->approve_leave($id,$data);
+        // echo "<pre>";
+        // print_r($result);
+        echo json_encode($result);
+    } 
+
+    public function show_leave_view(){
+        $id = $this->input->post('id');
+        $result = $this->mtm->show_leave_view($id);
         // echo "<pre>";
         // print_r($result);
         echo json_encode($result);
@@ -30,7 +56,9 @@ class Manage_leave extends CI_Controller {
             'mld_id' => $this->input->post('leaveType'),
             'ild_date_start' => $this->input->post('startDate'),
             'ild_date_end' => $this->input->post('endDate'),
-            'ild_leave_kind' => $this->input->post('leaveKind'),
+            'ild_time_start' => $this->input->post('timeStart'),
+            'ild_time_end' => $this->input->post('timeEnd'),
+            'ild_type_leave' => $this->input->post('HalfDayValue'),
             'ild_remark' => $this->input->post('remark'),
             'ild_created_date' => date('Y-m-d H:i:s'),
             'ild_status' => '0'
@@ -55,7 +83,6 @@ class Manage_leave extends CI_Controller {
                 return;
             }
         }
-    var_dump($data);
         // Insert data into the database
         $insert = $this->mtm->insert_leave($data);
     
@@ -64,5 +91,14 @@ class Manage_leave extends CI_Controller {
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Failed to submit form']);
         }
+
     }
+
+    public function deleteLeave() {
+        $id = $this->input->post('ild_id');
+        $result = $this->mtm->deleteLeave($id);
+        echo json_encode($result);
+    }
+    
+    
 }
