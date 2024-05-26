@@ -99,8 +99,8 @@ class Report_time extends CI_Controller
         $pdf->SetFont('Arial', 'B', 10);
         $pdf->Cell(90, $cellHeight, 'Total', 1, 0, 'C');
         $pdf->Cell(20, $cellHeight, number_format($totalOTHours, 2), 1, 0, 'C');
-        $pdf->Cell(30, $cellHeight, number_format($totalHours, 2), 1, 0, 'C');
-        $pdf->Cell(40, $cellHeight, '', 1, 1, 'C');
+        $pdf->Cell(25, $cellHeight, number_format($totalHours, 2), 1, 0, 'C');
+        $pdf->Cell(60, $cellHeight, '', 1, 1, 'C');
 
         // Output the PDF
     

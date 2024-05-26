@@ -16,6 +16,20 @@ class Manage_leave extends CI_Controller {
         echo json_encode($result);
     } 
 
+    public function show_leave_request (){
+        $result = $this->mtm->show_leave_request();
+        // echo "<pre>";
+        // print_r($result);
+        echo json_encode($result);
+    } 
+
+    public function show_late (){
+        $result = $this->mtm->show_late();
+        // echo "<pre>";
+        // print_r($result);
+        echo json_encode($result);
+    } 
+
     public function show_leave(){
         $result = $this->mtm->show_leave();
         // echo "<pre>";

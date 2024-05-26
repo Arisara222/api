@@ -67,6 +67,20 @@ class Manage_timesheet extends CI_Controller {
         $result = $this->mtm->insert_timesheet($data);
         echo json_encode($result);
     } 
+    
+    public function update_timesheet (){
+        $id = $this->input->post('its_id');
+        $data = [
+        'sa_id' => $this->input->post('username'),
+        'its_date' => $this->input->post('date'),
+        'its_time_in' => $this->input->post('timeStart'),
+        'its_time_out' => $this->input->post('timeEnd'),
+        'its_remark' => $this->input->post('remark'),
+        'its_ot' => $this->input->post('inpOt')
+        ];
+        $result = $this->mtm->update_timesheet($data,$id);
+        echo json_encode($result);
+    } 
 
     public function show_submenu(){
         $data = unserialize($this->input->post('data'));

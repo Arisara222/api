@@ -15,6 +15,7 @@ class Manage_time_model extends CI_Model {
     {
         $sql_group_per = "SELECT
         sys_account.sa_id,
+        its_id,
         sa_firstname,
         sa_lastname,
         its_date,
@@ -26,6 +27,32 @@ class Manage_time_model extends CI_Model {
     FROM
         `info_time_sheet`
         LEFT JOIN sys_account ON sys_account.sa_id = info_time_sheet.sa_id";
+        $query = $this->db->query($sql_group_per);
+        $data = $query->result();
+
+        return $data;
+    }
+
+    public function show_leave_request()
+    {
+        $sql_group_per = "SELECT
+        count(*) as cou
+    FROM
+        `info_leave_detail`
+        where ild_status = '0'";
+        $query = $this->db->query($sql_group_per);
+        $data = $query->result();
+
+        return $data;
+    }
+
+    public function show_late()
+    {
+        $sql_group_per = "SELECT
+        count(*) as tim
+    FROM
+        `info_time_sheet`
+        where its_time_in > '08:00:00' AND its_time_in < '12:00:00'";
         $query = $this->db->query($sql_group_per);
         $data = $query->result();
 
@@ -164,6 +191,20 @@ class Manage_time_model extends CI_Model {
         $this->db->insert('info_time_sheet', $data);
         return $this->db->affected_rows() > 0 ? true : false;
         
+    }
+    public function update_timesheet($data, $id) {
+        // Assuming `$this->db` refers to your database connection object
+    
+        // Update the timesheet record based on the provided $id
+        $this->db->where('its_id', $id); // Assuming 'timesheet_id' is the primary key column name
+        $this->db->update('info_time_sheet', $data); // Assuming 'timesheet_table' is your timesheet table name
+    
+        // Check if the update was successful
+        if ($this->db->affected_rows() > 0) {
+            return array('success' => true, 'message' => 'Timesheet updated successfully.');
+        } else {
+            return array('success' => false, 'message' => 'Failed to update timesheet.');
+        }
     }
 
     public function insert_leave($data)
