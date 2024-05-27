@@ -24,6 +24,19 @@ class Manage_model extends CI_Model
         $data = $query->result();
         return $data;
     }
+    public function show_user_profile($id)
+    {
+        $sql = "SELECT sys_account.* ,
+        sys_account_detail.sad_address,sys_account_detail.sad_birth_date,sys_account_detail.sad_picture
+        FROM sys_account
+        INNER JOIN sys_account_detail
+        ON sys_account.sa_id = sys_account_detail.sa_id
+        WHERE sys_account.sa_id = '$id'";
+
+        $query = $this->db->query($sql);
+        $data = $query->result();
+        return $data;
+    }
 
     public function show_drop_down()
     {
@@ -132,6 +145,17 @@ class Manage_model extends CI_Model
         }
     }
 
+    public function editProfile($data, $sa_id) {
+        $this->db->where('sa_id', $sa_id);
+        $this->db->update('sys_account', $data);
+        return $this->db->affected_rows() > 0;
+    }
+
+    public function editProfile2($data, $sa_id) {
+        $this->db->where('sa_id', $sa_id);
+        $this->db->update('sys_account_detail', $data);
+        return $this->db->affected_rows() > 0;
+    }
 
     public function show_update_acc($data, $sess)
     {

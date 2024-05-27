@@ -34,7 +34,7 @@ class Login_model extends CI_Model
                 
 
                     
-                    $sql_chk_status_permis = "SELECT * FROM sys_account t1 JOIN sys_permission_group t2 ON t1.spg_id = t2.spg_id  AND t2.spg_status_flg = 1 WHERE t1.sa_emp_code = '$empcode' AND t1.sa_emp_password = '$password'";                 
+                    $sql_chk_status_permis = "SELECT * FROM sys_account t1 JOIN sys_permission_group t2 ON t1.spg_id = t2.spg_id  AND t2.spg_status_flg = 1 JOIN sys_account_detail ON sys_account_detail.sa_id = t1.sa_id WHERE t1.sa_emp_code = '$empcode' AND t1.sa_emp_password = '$password'";                 
                     $query_chk_status_permis = $this->db->query($sql_chk_status_permis);   
                     
 
@@ -60,7 +60,8 @@ class Login_model extends CI_Model
                             'emp_lname' => $query_login_data->sa_lastname,
                             'permis_id' => $query_login_data->spg_id,
                             'permis_group' => $query_chk_status_permis->spg_name,
-                            'log_login' =>  $query_log_data->la_id
+                            'log_login' =>  $query_log_data->la_id,
+                            'image' =>  $query_log_data->sad_picture
                         );
                         
                     } else {
