@@ -16,6 +16,20 @@ class Manage_stock extends CI_Controller {
         echo json_encode($result);
     } 
 
+    public function show_das (){
+        $result = $this->msm->show_das();
+        // echo "<pre>";
+        // print_r($result);
+        echo json_encode($result);
+    } 
+
+    public function show_stock_cou (){
+        $result = $this->msm->show_stock_cou();
+        // echo "<pre>";
+        // print_r($result);
+        echo json_encode($result);
+    } 
+
     public function show_edit_stock (){
         $id = $this->input->post('id');
         $result = $this->msm->show_edit_stock($id);
@@ -92,8 +106,16 @@ class Manage_stock extends CI_Controller {
           $mp_id = $this->input->post('product');
           $quantity = $this->input->post('quantity');
           $note = $this->input->post('notes');
+          $company = $this->input->post('company');
           // Save the data to the database (example)
-
+        $data = [
+            'isd_company' => $company,
+            'mp_id' => $mp_id,
+            'isd_qty' => $quantity,
+            'isd_status' => '0',
+            'isd_create_date' => date('Y-m-d H:i:s'),
+        ];
+          $result = $this->msm->insertStock($data);
           $result1 = $this->msm->updateProduct($note,$quantity,$mp_id);
     
           if ($result1) {

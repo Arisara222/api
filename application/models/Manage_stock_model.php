@@ -32,6 +32,41 @@ class Manage_stock_model extends CI_Model
 
         return $data;
     }
+    
+    public function show_das()
+    {
+        $sql_group_per = "SELECT
+            isd.isd_company,
+            isd.isd_id,
+          mp.mp_id,
+          mp.mp_name,
+          isd_qty,
+             mp.mp_indicator,
+          isd.isd_status AS stock_status,
+            mp_price,
+            (mp_price * mp.mp_qty) as total_price,
+          isd.isd_create_date AS created_date
+        FROM info_stock_detail isd
+        LEFT JOIN mst_product mp ON isd.mp_id = mp.mp_id
+        
+        ORDER BY mp.mp_qty ASC;";
+        $query = $this->db->query($sql_group_per);
+        $data = $query->result();
+
+        return $data;
+    }
+    public function show_stock_cou()
+    {
+        $sql_group_per = "SELECT
+           SUM(mp_qty) as qty
+        FROM mst_product
+        
+        ORDER BY qty DESC;";
+        $query = $this->db->query($sql_group_per);
+        $data = $query->result();
+
+        return $data;
+    }
     public function show_edit_stock($id)
     {
         $sql_group_per = "SELECT
